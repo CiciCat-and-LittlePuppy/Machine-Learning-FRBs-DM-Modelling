@@ -33,7 +33,7 @@ cd "$SLURM_TMPDIR/test_res"
 tar -xf test_dataset.tar
 
 # Run the Python script
-python /home/beizi/projects/def-rajabf1/beizi/single_pulse_ml/the_3_models/res50.py \
+python project_path/res50.py \
   --train_dir="$SLURM_TMPDIR/data_6" \
   --test_dir="$SLURM_TMPDIR/test_6" \
   --plot_dir=plot_path \
