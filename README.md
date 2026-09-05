@@ -3,16 +3,16 @@ This repository is the model training part of the project.
 
 # Repository Structure
 
-The repository is organized into three main components:
+The repository is organized into three main components:<br>
 
-
-Machine-Learning-FRBs-DM-Modelling/
-│
-├── Time_Inference_New/
-│   ├── CNN.py                        # Measure Inference Time for the baseline CNN model
-│   ├── LSTM.py                       # Measure Inference Time for the CNN-LSTM model
-│   └── res50.py                      # Measure Inference Time for the ResNet50 model
-│
+```text
+Machine-Learning-FRBs-DM-Modelling
+│<br>
+├── Time_Inference_New/<br>
+│   ├── CNN.py                        # Measure Inference Time for the baseline CNN model<br>
+│   ├── LSTM.py                       # Measure Inference Time for the CNN-LSTM model<br>
+│   └── res50.py                      # Measure Inference Time for the ResNet50 model<br>
+│<br>
 ├── Training and quick run/
 │   ├── quick_run_trained_CNN.ipynb            # Load weights and quick test the baseline CNN model
 │   ├── quick_run_trained_Hybrid.ipynb         # Load weights and quick test the CNN-LSTM model
@@ -30,15 +30,17 @@ Machine-Learning-FRBs-DM-Modelling/
 │   └── Resnet50_Inference_time.sh    # Submit Task for testing the inference time of the ResNet50 model
 │
 └── README.md
+```
 
 # Explanation
 The input for each model shall have shape (1024, 512) for (time, frequency) as explained in the paper, with time resolution of about 1.67*7340/1024 ms.
 Those bash files are used to run the training/testing tasks in the linux based clusters.
 
-# Some Corrections
-We found the following issues and unclear points in our scripts during further validation :(
-1. We set up a learning rate scheduler for the ResNet50 Model (line 180) and the CNN-LSTM model (line 157), but did not call it in the later iteration loop, so it was not implemented successfully :(.
-2. We replaced the original classification output block of the ResNet-50 model with a standard regression head (line 159). We then freeze all blocks, and unfreeze the last 2 convolutional blocks for gradient descent (line 165 - line 169)
+# Some Corrections and Clarifications
+During further validation, we found the following issues and unclear points in our scripts :(
+1. We set up a learning rate scheduler for the ResNet50 Model (line 180 in res50.py) and the CNN-LSTM model (line 157 in CNN_LSTM.py), but did not call it in the later iteration loop, so it was not implemented successfully :(. Please be aware of this while looking at fig. 3. Our current evaluation shows this does not significantly affect the final result, as the learning curve has already been approaching the proper local minimum stably, and we plan a further test run.
+2. We replaced the ResNet-50 model's original classification output block with a standard FC regression head (line 159 in res50.py). We then freeze all blocks and unfreeze the last 2 convolutional blocks for gradient descent (lines 165-169). Note that on line 170, we also intended to unfreeze the FC layer, but that line does not actually do the job, so the last FC layer remains frozen and stays where it is after initialization.
+3. We used 2 GPUs to train the baseline CNN model. However, due to the communication and synchronization overhead between GPUs, using DataParallel() (line 135-137 in CNN_faster.py) may result in only a limited speedup. This means Table 5 underestimates the training efficiency of the baseline CNN model. Note that the 4 h in the first line, second column represents the total operating hours required, so the actual training period for one epoch is about 2 hours in real time.
 
 # Reference
 If you use this code in your research, please kindly cite our paper:
