@@ -14,7 +14,7 @@ import random
 
 start_time = time.time()
 
-random_seed = 68
+random_seed = 42
 torch.manual_seed(random_seed)
 torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
@@ -182,7 +182,7 @@ scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.4)
 # ------------------------------------------------------------------
 # Training Parameters
 # ------------------------------------------------------------------
-num_epochs = 60
+num_epochs = 150
 train_losses = []
 test_losses = []
 
