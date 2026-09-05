@@ -1,5 +1,4 @@
-This project uses three neural network based architecture to predict the dispersion measure (DM) of Fast Radio Burst (FRB) signals from waterfall data.
-This repository is the model training part of the project.
+This project uses three neural network based architecture to predict the dispersion measure (DM) of Fast Radio Burst (FRB) signals from waterfall data. This repository is the model training part of the project.
 
 # Repository Structure
 
@@ -7,12 +6,12 @@ The repository is organized into three main components:<br>
 
 ```text
 Machine-Learning-FRBs-DM-Modelling
-│<br>
+│
 ├── Time_Inference_New/<br>
 │   ├── CNN.py                        # Measure Inference Time for the baseline CNN model<br>
 │   ├── LSTM.py                       # Measure Inference Time for the CNN-LSTM model<br>
 │   └── res50.py                      # Measure Inference Time for the ResNet50 model<br>
-│<br>
+│
 ├── Training and quick run/
 │   ├── quick_run_trained_CNN.ipynb            # Load weights and quick test the baseline CNN model
 │   ├── quick_run_trained_Hybrid.ipynb         # Load weights and quick test the CNN-LSTM model
