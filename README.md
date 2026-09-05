@@ -35,7 +35,7 @@ Machine-Learning-FRBs-DM-Modelling
 The input for each model shall have shape (1024, 512) for (time, frequency) as explained in the paper, with time resolution of about 1.67*7340/1024 ms.
 Those bash files are used to run the training/testing tasks in the linux based clusters.
 
-# Some Corrections and Clarifications
+# Implementation Notes and Clarifications
 During further validation, we found the following issues and unclear points in our scripts :(
 
 1. We set up a learning rate scheduler for the ResNet50 Model (line 180 in res50.py) and the CNN-LSTM model (line 157 in CNN_LSTM.py), but did not call it in the later iteration loop, so it was not implemented successfully :(. Please be aware of this while looking at fig. 3. Our current evaluation shows this does not significantly affect the final result, as the learning curve has already been approaching the proper local minimum stably, and we plan a further test run.
