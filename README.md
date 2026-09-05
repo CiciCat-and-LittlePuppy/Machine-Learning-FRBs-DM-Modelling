@@ -42,7 +42,7 @@ During further validation, we found the following issues and unclear points in o
 2. We replaced the ResNet-50 model's original classification output block with a standard FC regression head (line 159 in res50.py). We then freeze all blocks and unfreeze the last 2 convolutional blocks for gradient descent (lines 165-169). Note that on line 170, we also intended to unfreeze the FC layer, but that line does not actually do the job, so the last FC layer remains frozen and stays where it is after initialization.
 3. We used 2 GPUs to train the baseline CNN model. However, due to the communication and synchronization overhead between GPUs, using DataParallel() (line 135-137 in CNN_faster.py) may result in only a limited speedup. This means Table 5 underestimates the training efficiency of the baseline CNN model. Note that the 4 h in the first line, second column represents the total operating hours required, so the actual training period for one epoch is about 2 hours in real time. We thus recommend DistributedDataParallel() instead for extended studying.
 
-We apologize for any confusion, and appreciate your understanding and inclusiveness, as this is our first project involving deep learning. We will continue to learn from this experience and improve our work in the future! Please contact us if you have any questions or suggestions. ≽^•⩊•^≼
+We learn from this experience and will improve our work in the future! Please contact us if you have any questions or suggestions. ≽^•⩊•^≼
 
 # Reference
 If you use this code in your research, please kindly cite our paper:
