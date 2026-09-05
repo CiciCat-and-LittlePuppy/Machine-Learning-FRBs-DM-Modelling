@@ -37,9 +37,12 @@ Those bash files are used to run the training/testing tasks in the linux based c
 
 # Some Corrections and Clarifications
 During further validation, we found the following issues and unclear points in our scripts :(
+
 1. We set up a learning rate scheduler for the ResNet50 Model (line 180 in res50.py) and the CNN-LSTM model (line 157 in CNN_LSTM.py), but did not call it in the later iteration loop, so it was not implemented successfully :(. Please be aware of this while looking at fig. 3. Our current evaluation shows this does not significantly affect the final result, as the learning curve has already been approaching the proper local minimum stably, and we plan a further test run.
 2. We replaced the ResNet-50 model's original classification output block with a standard FC regression head (line 159 in res50.py). We then freeze all blocks and unfreeze the last 2 convolutional blocks for gradient descent (lines 165-169). Note that on line 170, we also intended to unfreeze the FC layer, but that line does not actually do the job, so the last FC layer remains frozen and stays where it is after initialization.
 3. We used 2 GPUs to train the baseline CNN model. However, due to the communication and synchronization overhead between GPUs, using DataParallel() (line 135-137 in CNN_faster.py) may result in only a limited speedup. This means Table 5 underestimates the training efficiency of the baseline CNN model. Note that the 4 h in the first line, second column represents the total operating hours required, so the actual training period for one epoch is about 2 hours in real time.
+
+We apologize for any confusion, and appreciate your understanding and inclusiveness, as this is our first project involving deep learning. We will continue to learn from this experience and improve our work in the future! Please contact us if you have any questions or suggestions. ≽^•⩊•^≼
 
 # Reference
 If you use this code in your research, please kindly cite our paper:
@@ -63,4 +66,4 @@ keywords = {Transients: fast radio bursts, Methods: data analysis, Relativistic 
 abstract = {Fast radio bursts (FRBs) are bright, mostly millisecond-duration transients of extragalactic origin whose emission mechanisms remain unknown. As FRB signals propagate through ionised media, they experience frequency-dependent delays quantified by the dispersion measure (DM), a key parameter for inferring source distances and local plasma conditions. Accurate DM estimation is therefore essential for characterising FRB sources and testing physical models, yet current dedispersion methods can be computationally intensive and prone to human bias. In this proof-of-concept study, we develop and benchmark three deep-learning architectures, a conventional convolutional neural network (CNN), a fine-tuned ResNet-50, and a hybrid CNN–LSTM model, for automated DM estimation. All models are trained and validated on a large set of synthetic FRB dynamic spectra generated using CHIME/FRB-like specifications. The hybrid CNN–LSTM achieves the highest accuracy and stability while maintaining low computational cost across the investigated DM range. Although trained on simulated data, these models can be fine-tuned on real CHIME/FRB observations and extended to future facilities, providing a pathway towards real-time, data-driven DM estimation in large FRB surveys with further development.}
 }
 
-Thank you for your visiting and interesting! ≽^•⩊•^≼ U・ᴥ・U
+Thank you for your visiting and interesting! U・ᴥ・U
