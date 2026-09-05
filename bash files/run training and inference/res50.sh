@@ -34,8 +34,8 @@ tar -xf test_dataset.tar
 
 # Run the Python script
 python project_path/res50.py \
-  --train_dir="$SLURM_TMPDIR/data_6" \
-  --test_dir="$SLURM_TMPDIR/test_6" \
+  --train_dir="$SLURM_TMPDIR/data_res" \
+  --test_dir="$SLURM_TMPDIR/test_res" \
   --plot_dir=plot_path \
   --output_dir=checkpoint_path \
   --train_pred_dir=model_prediction_path
