@@ -47,13 +47,13 @@ class FRB_CNN_LSTM_3Conv(nn.Module):
             in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1
         )
         self.bn3 = nn.BatchNorm1d(128)
-        self.pool3 = nn.MaxPool1d(kernel_size=2, stride=2)
 
         # Conv4
         self.conv4 = nn.Conv1d(
             in_channels=128, out_channels=256, kernel_size=3, stride=1, padding=1
         )
         self.bn4 = nn.BatchNorm1d(256)
+        self.pool3 = nn.MaxPool1d(kernel_size=2, stride=2)
 
         # LSTM
         self.lstm = nn.LSTM(
@@ -66,14 +66,14 @@ class FRB_CNN_LSTM_3Conv(nn.Module):
         self.fc2 = nn.Linear(128, 1)
 
     def forward(self, x):
-        x = x.squeeze(1)
+        x = x.squeeze(1)  # (batch, 512, 1024)
         x = F.relu(self.bn1(self.conv1(x)))
         x = self.pool1(x)
         x = F.relu(self.bn2(self.conv2(x)))
         x = self.pool2(x)
         x = F.relu(self.bn3(self.conv3(x)))
-        x = self.pool3(x)
         x = F.relu(self.bn4(self.conv4(x)))
+        x = self.pool3(x)
         x = x.permute(0, 2, 1)
         x, _ = self.lstm(x)
         x = x[:, -1, :]
